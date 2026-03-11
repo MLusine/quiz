@@ -1,0 +1,79 @@
+{
+    "session_template": {
+      "name": "Quiz Night",
+      "activities": [
+        {
+          "id": "act_1",
+          "type": "quiz",
+          "step": 1,
+          "title": "Quiz Round 1",
+          "timer_seconds": 20,
+          "scoring": {
+            "mode": "time_weighted",
+            "base_points": 100
+          },
+          "show_leaderboard_after_each": true,
+          "questions": [
+            {
+              "id": "q1",
+              "text": "Question one text here?",
+              "options": ["Option A", "Option B", "Option C", "Option D"],
+              "correct_index": 0
+            },
+            {
+              "id": "q2",
+              "text": "Question two text here?",
+              "options": ["Choice 1", "Choice 2", "Choice 3", "Choice 4"],
+              "correct_index": 2
+            },
+            {
+              "id": "q3",
+              "text": "Question three text here?",
+              "options": ["Answer A", "Answer B", "Answer C", "Answer D"],
+              "correct_index": 1
+            }
+          ]
+        },
+        {
+          "id": "act_2",
+          "type": "puzzle_assembly",
+          "step": 2,
+          "title": "Individual Challenge",
+          "instruction": "Work through the challenge on your own.",
+          "timer_seconds": 300,
+          "fragments_count": 4,
+          "scoring": {
+            "mode": "self_report",
+            "points_per_correct": 25
+          }
+        },
+        {
+          "id": "act_3",
+          "type": "quiz",
+          "step": 3,
+          "title": "Quiz Round 2",
+          "timer_seconds": 20,
+          "scoring": {
+            "mode": "time_weighted",
+            "base_points": 100
+          },
+          "show_leaderboard_after_each": true,
+          "questions": [
+            {
+              "id": "q4",
+              "text": "Question four text here?",
+              "options": ["Option A", "Option B", "Option C", "Option D"],
+              "correct_index": 3
+            },
+            {
+              "id": "q5",
+              "text": "Question five text here?",
+              "options": ["Choice 1", "Choice 2", "Choice 3", "Choice 4"],
+              "correct_index": 1
+            }
+          ]
+        }
+      ]
+    }
+  }
+  

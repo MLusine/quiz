@@ -1,0 +1,83 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+generator client {
+  provider = "prisma-client"
+  output   = "../generated/prisma"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+model Admin {
+  id           Int      @id @default(autoincrement())
+  email        String   @unique
+  passwordHash String
+  createdAt    DateTime @default(now())
+}
+
+enum SessionStatus {
+  WAITING
+  ACTIVE
+  FINISHED
+}
+
+model Session {
+  id                    Int             @id @default(autoincrement())
+  code                  String          @unique
+  maxParticipants       Int
+  status                SessionStatus   @default(WAITING)
+  createdAt             DateTime        @default(now())
+  updatedAt             DateTime        @updatedAt
+  startedAt             DateTime?
+  endedAt               DateTime?
+  currentActivityIndex  Int?
+  currentQuestionIndex  Int?
+  templateKey           String
+  participants          Participant[]
+  submissions           Submission[]
+}
+
+model Participant {
+  id          Int          @id @default(autoincrement())
+  session     Session      @relation(fields: [sessionId], references: [id])
+  sessionId   Int
+  firstName   String
+  lastName    String
+  displayName String
+  createdAt   DateTime     @default(now())
+  submissions Submission[]
+
+  @@index([sessionId])
+}
+
+enum ActivityType {
+  QUIZ
+  PUZZLE
+}
+
+model Submission {
+  id               Int          @id @default(autoincrement())
+  session          Session      @relation(fields: [sessionId], references: [id])
+  sessionId        Int
+  participant      Participant  @relation(fields: [participantId], references: [id])
+  participantId    Int
+  activityType     ActivityType
+  roundIndex       Int
+  questionIndex    Int?
+  answerIndex      Int?
+  isCorrect        Boolean?
+  timeRemainingMs  Int?
+  totalTimeMs      Int?
+  correctCount     Int?
+  pointsPerCorrect Int?
+  score            Int
+  createdAt        DateTime     @default(now())
+
+  @@index([sessionId])
+  @@index([participantId])
+}
